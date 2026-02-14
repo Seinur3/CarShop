@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "0R/oQ3l3V6c=",
+  "dgSpecHash": "0EogjHgjgx4=",
   "success": true,
-  "projectFilePath": "/Users/seika/Desktop/CarShopFinal/CarShopFinal/CarShopFinal.csproj",
+  "projectFilePath": "/Users/sailybaev/RiderProjects/CarShop/CarShopFinal.csproj",
   "expectedPackageFiles": [
-    "/Users/seika/.nuget/packages/microsoft.aspnetcore.openapi/9.0.11/microsoft.aspnetcore.openapi.9.0.11.nupkg.sha512",
-    "/Users/seika/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
+    "/Users/sailybaev/.nuget/packages/microsoft.aspnetcore.openapi/9.0.11/microsoft.aspnetcore.openapi.9.0.11.nupkg.sha512",
+    "/Users/sailybaev/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
   ],
   "logs": []
 }

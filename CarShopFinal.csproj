@@ -13,11 +13,8 @@
     <ItemGroup>
       <Folder Include="Application\Common\" />
       <Folder Include="Application\Features\" />
-      <Folder Include="Domain\Enums\" />
       <Folder Include="Domain\Events\" />
       <Folder Include="Domain\Interfaces\" />
-      <Folder Include="Domain\Models\" />
-      <Folder Include="Domain\ValueObjects\" />
       <Folder Include="Infrastructure\Services\" />
       <Folder Include="Persistance\Configurations\" />
       <Folder Include="Persistance\Context\" />
