@@ -35,14 +35,15 @@ public class Order : AggregateRoot
 
     public Money GetTotal()
     {
-        // return _orderItems.Select(i => i.price).Aggregate((total, price) => total.Amount + price.Amount);
+        var totalAmount = _orderItems.Sum(i=>i.price.Amount); 
+        //return _orderItems.Select(i => i.price).Aggregate((total, price) => total.Amount + price.Amount);
         //TODO: LINQ
-        return new Money(1 , "USD");
+        return new Money(totalAmount , "USD");
     }
 
     public void Cancel()
     {
-        if (Status != OrderStatus.Delivered)
+        if (Status == OrderStatus.Delivered)
         {
             throw new InvalidOperationException("Delivered orders can not be cancelled.");
         }
@@ -53,6 +54,10 @@ public class Order : AggregateRoot
 
     public void MArkUsPaid()
     {
+        if (Status != OrderStatus.Reserved)
+        {
+            throw new InvalidOperationException($"Order with status {Status} cannot be marked as paid.");
+        }
         // TODO: Implement error handler
         Status = OrderStatus.Paid;
         SetUpdatedAt();
