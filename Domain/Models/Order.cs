@@ -24,10 +24,10 @@ public class Order : AggregateRoot
         
         SetCreatedAt();
     }
-
+    
     public void AddItem(Guid CarId, Money Price)
     {
-        if (Status != OrderStatus.Pending)
+        if (Status == OrderStatus.Pending)
         {
             throw new InvalidOperationException("Cannot add an order to a pending order");
         }
@@ -36,10 +36,11 @@ public class Order : AggregateRoot
     public Money GetTotal()
     {
         var totalAmount = _orderItems.Sum(i=>i.price.Amount); 
-        //return _orderItems.Select(i => i.price).Aggregate((total, price) => total.Amount + price.Amount);
-        //TODO: LINQ
-        return new Money(totalAmount , "USD");
+
+        return new Money(totalAmount , _orderItems[0].price.Currency);
     }
+    
+    // DDD - domain driven development - Fintech , Bigtech 
 
     public void Cancel()
     {
@@ -52,13 +53,13 @@ public class Order : AggregateRoot
         SetUpdatedAt();
     }
 
-    public void MArkUsPaid()
+    public void MarkAsPaid()
     {
         if (Status != OrderStatus.Reserved)
         {
             throw new InvalidOperationException($"Order with status {Status} cannot be marked as paid.");
         }
-        // TODO: Implement error handler
+       
         Status = OrderStatus.Paid;
         SetUpdatedAt();
     }

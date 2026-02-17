@@ -1,5 +1,10 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
 namespace CarShopFinal.Domain.ValueObjects;
 
+[Keyless]
+[NotMapped]
 public class Money
 {
     public decimal Amount { get; }

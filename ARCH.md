@@ -75,7 +75,7 @@ CarShop.Application/
 ├── Common/
 │   ├── Interfaces/
 │   ├── Exceptions/
-│   ├── Behaviors/        (MediatR pipeline)
+│   ├── Behaviors/        (MediatR pipeline) TODO
 │   └── Mapping/
 │
 ├── Features/

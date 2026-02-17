@@ -1,4 +1,10 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
 namespace CarShopFinal.Domain.Models;
+
+[Keyless]
+[NotMapped]
 
 public class VIN
 {
