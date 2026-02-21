@@ -27,15 +27,24 @@ public class Order : AggregateRoot
     
     public void AddItem(Guid CarId, Money Price)
     {
-        if (Status == OrderStatus.Pending)
+        if (Status != OrderStatus.Pending)
         {
-            throw new InvalidOperationException("Cannot add an order to a pending order");
+            throw new InvalidOperationException("Cannot add an order item to a paid/delivered/cancelled/refunded order");
         }
+        var newItem = new OrderItem(CarId, Price);
+        _orderItems.Add(newItem);
+        SetUpdatedAt();
+        
     }
 
     public Money GetTotal()
     {
-        var totalAmount = _orderItems.Sum(i=>i.price.Amount); 
+        if (_orderItems.Count == 0)
+        {
+            return new Money(0, "USD");
+        }
+
+        var totalAmount = _orderItems.Sum(i=>i.price.Amount);
 
         return new Money(totalAmount , _orderItems[0].price.Currency);
     }

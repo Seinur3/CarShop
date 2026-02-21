@@ -12,7 +12,8 @@ public static class DependencyInjection
         services.AddDbContext<CarDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
         
-        services.AddScoped<ICarInterface, CarRepository>();
+        services.AddScoped<ICarRepository, CarRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
         
         return services;
     }

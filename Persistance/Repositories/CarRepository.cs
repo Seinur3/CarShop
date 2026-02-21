@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarShopFinal.Persistance.Repositories;
 
-public class CarRepository : ICarInterface
+public class CarRepository : ICarRepository
 {
     
     private readonly CarDbContext _context;
@@ -35,5 +35,12 @@ public class CarRepository : ICarInterface
     {
          _context.Cars.Remove(car);
     }
+
+    public async Task UpdateAsync(Car car)
+    {
+        _context.Cars.Update(car);
+        await _context.SaveChangesAsync();
+    }
+
 }
 
