@@ -27,6 +27,8 @@ public class AuthController:ControllerBase
         var token = await _authService.LoginUser(email, password);
         return Ok(token);
     }
+    
+    //TODO: GET auth/me
     [Authorize]
     [HttpGet("secure")]
     public IActionResult Secure()

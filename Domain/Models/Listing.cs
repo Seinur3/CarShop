@@ -14,13 +14,13 @@ public class Listing:AggregateRoot
     public int View { get; private set; }
     public string City { get; private set; }
     public string Description { get; private set; }
-    public List<Guid> CarImage {get; private set;}
+    public List<string> CarImage {get; private set;}
     public ListingStatus ListingStatus { get; private set; }
 
     public Listing(){}
 
     public Listing(Guid sellerId, ModerationStatus? status, Car car, int view, string city, string description,
-        List<Guid> carImage)
+        List<string> carImage)
     {
         Id = Guid.NewGuid();
         SellerId = sellerId;

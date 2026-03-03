@@ -18,6 +18,8 @@ using CarShopFinal.Application.Features.Listing.UpdateListing;
 using CarShopFinal.Application.Features.Order.CancelOrder;
 using CarShopFinal.Application.Features.Order.CreateOrder;
 using CarShopFinal.Application.Features.Order.GetOrderById;
+using CarShopFinal.Domain.Interfaces;
+using CarShopFinal.Infrastructure.Services;
 
 namespace CarShopFinal.Application.Dependency;
 
@@ -52,6 +54,8 @@ public static class DependencyInjection
         services.AddScoped<CreateOrderHandle>();
         services.AddScoped<GetOrderByIdHandler>();
         services.AddScoped<CancelOrderHandler>();
+        
+        services.AddScoped<IFileService, FileService>();
 
         return services;
     }

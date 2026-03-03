@@ -4,6 +4,7 @@ using CarShopFinal.Application.Features.Listing.DeleteListing;
 using CarShopFinal.Application.Features.Listing.GetListings;
 using CarShopFinal.Application.Features.Listing.RejectListing;
 using CarShopFinal.Application.Features.Listing.UpdateListing;
+using CarShopFinal.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ public class ListingController : ControllerBase
     private readonly RejectListingHandler _rejectListingHandler;
     private readonly DeleteListingHandler _deleteListingHandler;
     private readonly UpdateListingHandler _updateListingHandler;
+    private readonly IFileService _fileService;
 
     public ListingController(
         CreateListingHandler createListingHandler,
@@ -26,6 +28,7 @@ public class ListingController : ControllerBase
         ApproveListingHandler approveListingHandler,
         RejectListingHandler rejectListingHandler,
         DeleteListingHandler deleteListingHandler,
+        IFileService fileService,
         UpdateListingHandler updateListingHandler)
     {
         _createListingHandler = createListingHandler;
@@ -34,13 +37,24 @@ public class ListingController : ControllerBase
         _rejectListingHandler = rejectListingHandler;
         _deleteListingHandler = deleteListingHandler;
         _updateListingHandler = updateListingHandler;
+        _fileService = fileService;
     }
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> CreateListing([FromBody] CreateListingCommand command)
+    public async Task<IActionResult> CreateListing([FromForm] CreateListingRequest command , IFormFileCollection file)
     {
-        var id = await _createListingHandler.Handle(command);
+        
+        var FileNames = new List<string>();
+        foreach (var formFile in file)
+        {
+            var fileName = await _fileService.UploadFileAsync(formFile.OpenReadStream(), formFile.FileName);
+            Console.WriteLine($"Uploaded file: {fileName}");
+            FileNames.Add(fileName);
+        }
+        
+        var req = new CreateListingCommand(command.SellerId, command.CarId, command.City, command.Description, FileNames);
+        var id = await _createListingHandler.Handle(req);
         return Ok(id);
     }
 
@@ -94,7 +108,7 @@ public class ListingController : ControllerBase
 }
 
 public record UpdateListingRequest(string City, string Description);
-
+public record CreateListingRequest(Guid SellerId, Guid CarId, string City, string Description);
 //PRAVKA
 /*
    private readonly GetListingsHandler _getListingsHandler;
